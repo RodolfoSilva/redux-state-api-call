@@ -2,30 +2,32 @@
 
 const webpack = require('webpack');
 const path = require('path');
-const env = require('yargs').argv.env;
+const { env } = require('yargs').argv;
 const pkg = require('./package.json');
-const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 
-let libraryName = pkg.name;
+const { UglifyJsPlugin } = webpack.optimize;
 
-let plugins = [], outputFile;
+const libraryName = pkg.name;
+
+const plugins = [];
+let outputFile;
 
 if (env === 'build') {
   plugins.push(new UglifyJsPlugin({ minimize: true }));
-  outputFile = libraryName + '.min.js';
+  outputFile = `${libraryName}.min.js`;
 } else {
-  outputFile = libraryName + '.js';
+  outputFile = `${libraryName}.js`;
 }
 
 const config = {
-  entry: __dirname + '/src/index.js',
+  entry: `${__dirname}/src/index.js`,
   devtool: 'source-map',
   output: {
-    path: __dirname + '/lib',
+    path: `${__dirname}/lib`,
     filename: outputFile,
     library: libraryName,
     libraryTarget: 'umd',
-    umdNamedDefine: true
+    umdNamedDefine: true,
   },
   module: {
     rules: [
@@ -34,16 +36,16 @@ const config = {
         exclude: /node_modules/,
         use: [
           { loader: 'babel-loader' },
-          { loader: 'eslint-loader' }
-        ]
-      }
-    ]
+          { loader: 'eslint-loader' },
+        ],
+      },
+    ],
   },
   resolve: {
     modules: [path.resolve('./node_modules'), path.resolve('./src')],
-    extensions: ['.json', '.js']
+    extensions: ['.json', '.js'],
   },
-  plugins: plugins
+  plugins,
 };
 
 module.exports = config;
