@@ -1,51 +1,30 @@
-/* global __dirname, require, module */
-
-const webpack = require('webpack');
 const path = require('path');
-const { env } = require('yargs').argv;
-const pkg = require('./package.json');
+const webpack = require('webpack');
 
-const { UglifyJsPlugin } = webpack.optimize;
+const { NODE_ENV } = process.env;
+const production = NODE_ENV === 'production';
 
-const libraryName = pkg.name;
-
-const plugins = [];
-let outputFile;
-
-if (env === 'build') {
-  plugins.push(new UglifyJsPlugin({ minimize: true }));
-  outputFile = `${libraryName}.min.js`;
-} else {
-  outputFile = `${libraryName}.js`;
-}
-
-const config = {
-  entry: `${__dirname}/src/index.js`,
-  devtool: 'source-map',
+module.exports = {
+  entry: path.join(__dirname, 'src/index.js'),
   output: {
-    path: `${__dirname}/lib`,
-    filename: outputFile,
-    library: libraryName,
-    libraryTarget: 'umd',
-    umdNamedDefine: true,
+    path: path.join(__dirname, 'dist'),
+    filename: `redux-state-api-call${production ? '.min' : ''}.js`,
+    library: 'ReduxStateApiCall',
+    libraryTarget: 'umd'
   },
+  mode: production ? 'production' : 'development',
   module: {
     rules: [
       {
-        test: /(\.js)$/,
-        exclude: /node_modules/,
-        use: [
-          { loader: 'babel-loader' },
-          { loader: 'eslint-loader' },
-        ],
-      },
-    ],
+        test: /\.js$/,
+        loaders: ['babel-loader', 'eslint-loader'],
+        exclude: /node_modules/
+      }
+    ]
   },
-  resolve: {
-    modules: [path.resolve('./node_modules'), path.resolve('./src')],
-    extensions: ['.json', '.js'],
-  },
-  plugins,
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(NODE_ENV)
+    })
+  ]
 };
-
-module.exports = config;
