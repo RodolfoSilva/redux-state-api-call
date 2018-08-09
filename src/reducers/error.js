@@ -1,16 +1,47 @@
-import { FAILURE_PATTERN, VALID_TYPE_PATTERN } from '../constants';
+import { ASYNC_TYPE_PATTERN, REQUEST, FAILURE, SUCCESS } from '../constants';
+import splitNameAndTypeFromString from '../splitNameAndTypeFromString';
 
-export default (state = {}, { type, payload, error }) => {
-  // not a *_REQUEST / *_FAILURE actions, so we ignore them
-  if (!/(.*)_(REQUEST|FAILURE)/.exec(type)) return state;
+/**
+ * @param {Error|null} state
+ * @param {Object} action
+ * @param {string} action.type
+ * @param {boolean} [action.error]
+ * @param {Error} [action.payload]
+ * @return {Error|null}
+ */
+const errorReducer = (state = null, action) => {
+  switch (action.type) {
+    case REQUEST:
+    case SUCCESS:
+      return null;
+    case FAILURE:
+      return action.error === true ? action.payload : null;
+    default:
+      return state;
+  }
+};
 
-  const requestName = type.toString().replace(VALID_TYPE_PATTERN, '$1');
+/**
+ * Handle all actions ended with _(REQUEST|FAILURE|SUCCESS)
+ * @param {Object} state
+ * @param {Object} action
+ * @param {string} action.type
+ * @param {boolean} [action.error]
+ * @param {Error} [action.payload]
+ * @returns {Object}
+ */
+export default (state = {}, action) => {
+  if (!ASYNC_TYPE_PATTERN.test(action.type)) {
+    return state;
+  }
 
-  // Store errorMessage
-  // e.g. stores errorMessage when receiving GET_TODOS_FAILURE
-  //      else clear errorMessage when receiving GET_TODOS_REQUEST
+  const [requestName, actionType] = splitNameAndTypeFromString(action.type);
+
   return {
     ...state,
-    [requestName]: error === true && FAILURE_PATTERN.test(type) ? payload : null,
+    [requestName]: errorReducer(state[requestName], {
+      ...action,
+      type: actionType
+    })
   };
 };

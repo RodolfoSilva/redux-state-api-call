@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect';
-import apiStateSelector from './apiStateSelector';
-import validateActionName from './validateActionName';
-import { VALID_TYPE_PATTERN } from './constants';
+import rootState from './rootState';
+import validateActionName from '../validateActionName';
+import splitNameAndTypeFromString from '../splitNameAndTypeFromString';
 
-var rootStateSelector = createSelector(apiStateSelector, function(state) {
+var rootStateSelector = createSelector(rootState, function(state) {
   return state.error;
 });
 
@@ -13,7 +13,7 @@ var rootStateSelector = createSelector(apiStateSelector, function(state) {
 var createErrorMessageSelector = function createErrorMessageSelector(actions) {
   actions.forEach(validateActionName);
   var plainActions = actions.map(function(action) {
-    return action.toString().replace(VALID_TYPE_PATTERN, '$1');
+    return splitNameAndTypeFromString(action.toString())[0];
   });
 
   return createSelector([rootStateSelector], function(state) {

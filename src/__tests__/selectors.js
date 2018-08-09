@@ -2,14 +2,13 @@ import rootState from '../selectors/rootState';
 
 describe('selectors', () => {
   describe('rootState', () => {
-    test.only('Return the root state', () => {
-      const state = {
-        api: {
-          loading: {},
-          error: {}
-        }
+    test('should return the root state', () => {
+      const root = {
+        loading: {},
+        error: {}
       };
-      expect(rootState(state)).toEqual(state.api);
+
+      expect(rootState({ api: root })).toEqual(root);
     });
   });
 });

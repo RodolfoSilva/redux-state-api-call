@@ -1,16 +1,40 @@
-import { REQUEST_PATTERN, VALID_TYPE_PATTERN } from '../constants';
+import { ASYNC_TYPE_PATTERN, REQUEST, FAILURE, SUCCESS } from '../constants';
+import splitNameAndTypeFromString from '../splitNameAndTypeFromString';
 
+/**
+ * @param {Number} state
+ * @param {Object} action
+ * @param {string} action.type
+ * @return {Number}
+ */
+const countLoading = (state = 0, action) => {
+  switch (action.type) {
+    case REQUEST:
+      return state + 1;
+    case FAILURE:
+    case SUCCESS:
+      return state - 1;
+    default:
+      return state;
+  }
+};
+
+/**
+ * Handle all actions ended with _(REQUEST|FAILURE|SUCCESS)
+ * @param {Object} state
+ * @param {Object} action
+ * @param {string} action.type
+ * @returns {Object}
+ */
 export default (state = {}, { type }) => {
-  // not a *_REQUEST / *_SUCCESS /  *_FAILURE actions, so we ignore them
-  if (!/(.*)_(REQUEST|SUCCESS|FAILURE)/.exec(type)) return state;
+  if (!ASYNC_TYPE_PATTERN.test(type)) {
+    return state;
+  }
 
-  const requestName = type.toString().replace(VALID_TYPE_PATTERN, '$1');
+  const [requestName, actionType] = splitNameAndTypeFromString(type);
 
-  // Store whether a request is happening at the moment or not
-  // e.g. will be true when receiving GET_TODOS_REQUEST
-  //      and false when receiving GET_TODOS_SUCCESS / GET_TODOS_FAILURE
   return {
     ...state,
-    [requestName]: REQUEST_PATTERN.test(type),
+    [requestName]: countLoading(state[requestName], { type: actionType })
   };
 };

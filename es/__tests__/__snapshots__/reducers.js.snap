@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`reducer error should handle actions ended with _(REQUEST|SUCCESS|FAILURE) 1`] = `
+Object {
+  "ADD_TODO": null,
+}
+`;
+
+exports[`reducer error should handle actions ended with _(REQUEST|SUCCESS|FAILURE) 2`] = `
+Object {
+  "ADD_TODO": null,
+}
+`;
+
+exports[`reducer error should handle actions ended with _FAILURE 1`] = `
+Object {
+  "ADD_TODO": [Error: Unexpected error],
+}
+`;
+
+exports[`reducer error should handle actions ended with _REQUEST 1`] = `
+Object {
+  "ADD_TODO": null,
+}
+`;
+
+exports[`reducer error should handle actions ended with _SUCCESS 1`] = `
+Object {
+  "ADD_TODO": null,
+}
+`;
+
+exports[`reducer error should ignore actions not ended with _(REQUEST|SUCCESS|FAILURE) 1`] = `Object {}`;
+
+exports[`reducer error should ignore actions not ended with _(REQUEST|SUCCESS|FAILURE) 2`] = `Object {}`;
+
+exports[`reducer error should ignore actions not ended with _(REQUEST|SUCCESS|FAILURE) 3`] = `Object {}`;
+
+exports[`reducer error should return the initial state 1`] = `Object {}`;
+
+exports[`reducer loading should handle actions ended with _FAILURE 1`] = `
+Object {
+  "ADD_TODO": 1,
+}
+`;
+
+exports[`reducer loading should handle actions ended with _REQUEST 1`] = `
+Object {
+  "ADD_TODO": 3,
+}
+`;
+
+exports[`reducer loading should handle actions ended with _SUCCESS 1`] = `
+Object {
+  "ADD_TODO": 1,
+}
+`;
+
+exports[`reducer loading should return the initial state 1`] = `Object {}`;

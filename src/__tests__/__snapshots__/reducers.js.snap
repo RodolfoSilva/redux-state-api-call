@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`reducer error should handle actions ended with _(REQUEST|SUCCESS) 1`] = `
+Object {
+  "ADD_TODO": null,
+}
+`;
+
+exports[`reducer error should handle actions ended with _(REQUEST|SUCCESS) 2`] = `
+Object {
+  "ADD_TODO": null,
+}
+`;
+
+exports[`reducer error should handle actions ended with _(REQUEST|SUCCESS|FAILURE) 1`] = `
+Object {
+  "ADD_TODO": null,
+}
+`;
+
+exports[`reducer error should handle actions ended with _(REQUEST|SUCCESS|FAILURE) 2`] = `
+Object {
+  "ADD_TODO": null,
+}
+`;
+
+exports[`reducer error should handle actions ended with _(REQUEST|SUCCESS|FAILURE) 3`] = `
+Object {
+  "ADD_TODO": null,
+}
+`;
+
+exports[`reducer error should handle actions ended with _FAILURE 1`] = `
+Object {
+  "ADD_TODO": [Error: Unexpected error],
+}
+`;
+
+exports[`reducer error should ignore actions not ended with _(REQUEST|SUCCESS|FAILURE) 1`] = `Object {}`;
+
+exports[`reducer error should ignore actions not ended with _(REQUEST|SUCCESS|FAILURE) 2`] = `Object {}`;
+
+exports[`reducer error should ignore actions not ended with _(REQUEST|SUCCESS|FAILURE) 3`] = `Object {}`;
+
+exports[`reducer error should ignore actions not ended with _(REQUEST|SUCCESS|FAILURE) 4`] = `Object {}`;
+
+exports[`reducer error should return the initial state 1`] = `Object {}`;
+
+exports[`reducer loading should handle actions and decrement with _(FAILURE|SUCCESS) 1`] = `
+Object {
+  "ADD_TODO": -1,
+}
+`;
+
+exports[`reducer loading should handle actions and decrement with _(FAILURE|SUCCESS) 2`] = `
+Object {
+  "ADD_TODO": -1,
+}
+`;
+
+exports[`reducer loading should handle actions and decrement with _(FAILURE|SUCCESS) 3`] = `
+Object {
+  "ADD_TODO": 0,
+}
+`;
+
+exports[`reducer loading should handle actions and decrement with _(FAILURE|SUCCESS) 4`] = `
+Object {
+  "ADD_TODO": 2,
+}
+`;
+
+exports[`reducer loading should handle actions and decrement with _(FAILURE|SUCCESS) 5`] = `
+Object {
+  "ADD_TODO": 0,
+}
+`;
+
+exports[`reducer loading should handle actions and decrement with _(FAILURE|SUCCESS) 6`] = `
+Object {
+  "ADD_TODO": 2,
+}
+`;
+
+exports[`reducer loading should handle actions and increment with _REQUEST 1`] = `
+Object {
+  "ADD_TODO": 1,
+}
+`;
+
+exports[`reducer loading should handle actions and increment with _REQUEST 2`] = `
+Object {
+  "ADD_TODO": 2,
+}
+`;
+
+exports[`reducer loading should handle actions ended with _(REQUEST|FAILURE|SUCCESS) 1`] = `
+Object {
+  "ADD_TODO": 1,
+}
+`;
+
+exports[`reducer loading should handle actions ended with _(REQUEST|FAILURE|SUCCESS) 2`] = `
+Object {
+  "ADD_TODO": -1,
+}
+`;
+
+exports[`reducer loading should handle actions ended with _(REQUEST|FAILURE|SUCCESS) 3`] = `
+Object {
+  "ADD_TODO": -1,
+}
+`;
+
+exports[`reducer loading should return the initial state 1`] = `Object {}`;

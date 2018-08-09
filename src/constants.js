@@ -1,4 +1,7 @@
-export const REQUEST_PATTERN = /(.*)_REQUEST$/;
-export const FAILURE_PATTERN = /(.*)_FAILURE$/;
-export const SUCCESS_PATTERN = /(.*)_SUCCESS$/;
-export const VALID_TYPE_PATTERN = /(.*)_(REQUEST|FAILURE|SUCCESS)$/;
+export const REQUEST = 'REQUEST';
+export const FAILURE = 'FAILURE';
+export const SUCCESS = 'SUCCESS';
+
+export const ASYNC_TYPE_PATTERN = new RegExp(
+  `(.*)_(${REQUEST}|${FAILURE}|${SUCCESS})$`
+);

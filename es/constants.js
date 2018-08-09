@@ -1,4 +1,7 @@
-export var REQUEST_PATTERN = /(.*)_REQUEST$/;
-export var FAILURE_PATTERN = /(.*)_FAILURE$/;
-export var SUCCESS_PATTERN = /(.*)_SUCCESS$/;
-export var VALID_TYPE_PATTERN = /(.*)_(REQUEST|FAILURE|SUCCESS)$/;
+export var REQUEST = 'REQUEST';
+export var FAILURE = 'FAILURE';
+export var SUCCESS = 'SUCCESS';
+
+export var ASYNC_TYPE_PATTERN = new RegExp(
+  '(.*)_(' + REQUEST + '|' + FAILURE + '|' + SUCCESS + ')$'
+);
