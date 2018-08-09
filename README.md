@@ -39,7 +39,11 @@ actions.js
 
 ```javascript
 import { createActions } from 'redux-actions';
-const { fetchAllRequest, fetchAllFailure, fetchAllSuccess } = createActions(
+export const {
+  fetchAllRequest,
+  fetchAllFailure,
+  fetchAllSuccess
+} = createActions(
   {
     FETCH_ALL_REQUEST: undefined,
     FETCH_ALL_FAILURE: undefined,
