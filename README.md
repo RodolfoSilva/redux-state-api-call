@@ -26,7 +26,7 @@ The store should know how to handle actions coming from the async actions. To en
 import { combineReducers } from 'redux';
 import { reducer as apiReducer } from 'redux-state-api-call';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   // ...your other reducers here
   // you have to pass apiReducer under 'api' key
   api: apiReducer
