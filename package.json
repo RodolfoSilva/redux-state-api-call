@@ -47,7 +47,7 @@
   "devDependencies": {
     "babel-cli": "^6.7.7",
     "babel-core": "^6.7.7",
-    "babel-jest": "^22.4.3",
+    "babel-jest": "^23.4.2",
     "babel-loader": "^7.1.4",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
@@ -63,17 +63,21 @@
     "eslint-plugin-react": "^7.9.1",
     "flux-standard-action": "^1.0.0",
     "husky": "^0.14.3",
-    "jest": "^22.4.3",
+    "jest": "^23.4.2",
     "lint-staged": "^7.0.4",
     "npm-run-all": "^4.1.2",
     "prettier": "^1.12.1",
     "rimraf": "^2.5.3",
-    "webpack": "^4.1.1",
+    "webpack": "^4.16.5",
     "webpack-cli": "^2.0.11",
     "xo": "^0.20.3"
   },
   "dependencies": {
-    "invariant": "^2.2.1"
+    "invariant": "^2.2.1",
+    "lodash.memoize": "^4.1.2",
+    "redux": "^4.0.0",
+    "redux-actions": "^2.6.1",
+    "reselect": "^3.0.1"
   },
   "peerDependencies": {
     "redux": "^4.0.0",
@@ -94,7 +98,7 @@
     "trailingComma": "none"
   },
   "jest": {
-    "collectCoverage": true
+    "testEnvironment": "node"
   },
   "lint-staged": {
     "*.{js,md}": [
