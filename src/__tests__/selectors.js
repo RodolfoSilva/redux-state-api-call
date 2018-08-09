@@ -5,7 +5,7 @@ describe('selectors', () => {
     test('should return the root state', () => {
       const root = {
         loading: {},
-        error: {}
+        error: {},
       };
 
       expect(rootState({ api: root })).toEqual(root);

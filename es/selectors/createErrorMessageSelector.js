@@ -3,7 +3,7 @@ import rootState from './rootState';
 import validateActionName from '../validateActionName';
 import splitNameAndTypeFromString from '../splitNameAndTypeFromString';
 
-var rootStateSelector = createSelector(rootState, function(state) {
+var rootStateSelector = createSelector(rootState, function (state) {
   return state.error;
 });
 
@@ -12,18 +12,16 @@ var rootStateSelector = createSelector(rootState, function(state) {
 //   requires multiple API calls, we shows the first error
 var createErrorMessageSelector = function createErrorMessageSelector(actions) {
   actions.forEach(validateActionName);
-  var plainActions = actions.map(function(action) {
+  var plainActions = actions.map(function (action) {
     return splitNameAndTypeFromString(action.toString())[0];
   });
 
-  return createSelector([rootStateSelector], function(state) {
-    var errors = plainActions
-      .map(function(action) {
-        return state[action];
-      })
-      .filter(function(error) {
-        return error;
-      });
+  return createSelector([rootStateSelector], function (state) {
+    var errors = plainActions.map(function (action) {
+      return state[action];
+    }).filter(function (error) {
+      return error;
+    });
     if (!errors || !errors.length) return null;
     return errors[0];
   });

@@ -1,4 +1,6 @@
-import { ASYNC_TYPE_PATTERN, REQUEST, FAILURE, SUCCESS } from '../constants';
+import {
+  ASYNC_TYPE_PATTERN, REQUEST, FAILURE, SUCCESS,
+} from '../constants';
 import splitNameAndTypeFromString from '../splitNameAndTypeFromString';
 
 /**
@@ -35,6 +37,6 @@ export default (state = {}, { type }) => {
 
   return {
     ...state,
-    [requestName]: countLoading(state[requestName], { type: actionType })
+    [requestName]: countLoading(state[requestName], { type: actionType }),
   };
 };

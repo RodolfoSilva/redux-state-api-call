@@ -1,90 +1,55 @@
 import loadingReducer from '../reducers/loading';
 import errorReducer from '../reducers/error';
 
-describe('reducer', function() {
-  describe('loading', function() {
-    it('should return the initial state', function() {
+describe('reducer', function () {
+  describe('loading', function () {
+    it('should return the initial state', function () {
       expect(loadingReducer(undefined, {})).toMatchSnapshot();
     });
 
-    it('should handle actions ended with _REQUEST', function() {
-      var action = { type: 'ADD_TODO_REQUEST' };
-
-      expect(loadingReducer(undefined, action)).toEqual({ ADD_TODO: 1 });
-      expect(loadingReducer({ ADD_TODO: 1 }, action)).toEqual({ ADD_TODO: 2 });
-      expect(loadingReducer({ ADD_TODO: 2 }, action)).toMatchSnapshot();
+    test.each([[{ type: 'ADD_TODO_REQUEST' }, undefined, { ADD_TODO: expect.any(Number) }], [{ type: 'ADD_TODO_FAILURE' }, undefined, { ADD_TODO: expect.any(Number) }], [{ type: 'ADD_TODO_SUCCESS' }, undefined, { ADD_TODO: expect.any(Number) }]])('should handle actions ended with _(REQUEST|FAILURE|SUCCESS)', function (action, state, expected) {
+      expect(loadingReducer(state, action)).toEqual(expected);
+      expect(loadingReducer(state, action)).toMatchSnapshot();
     });
 
-    test.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])('.add(%i, %i)', function(
-      a,
-      b,
-      expected
-    ) {
-      expect(a + b).toBe(expected);
+    test.each([[{ type: 'ADD_TODO_FAILURE' }, undefined, { ADD_TODO: -1 }], [{ type: 'ADD_TODO_SUCCESS' }, undefined, { ADD_TODO: -1 }], [{ type: 'ADD_TODO_FAILURE' }, { ADD_TODO: 1 }, { ADD_TODO: 0 }], [{ type: 'ADD_TODO_FAILURE' }, { ADD_TODO: 3 }, { ADD_TODO: 2 }], [{ type: 'ADD_TODO_SUCCESS' }, { ADD_TODO: 1 }, { ADD_TODO: 0 }], [{ type: 'ADD_TODO_SUCCESS' }, { ADD_TODO: 3 }, { ADD_TODO: 2 }]])('should handle actions and decrement with _(FAILURE|SUCCESS)', function (action, state, expected) {
+      expect(loadingReducer(state, action)).toEqual(expected);
+      expect(loadingReducer(state, action)).toMatchSnapshot();
     });
 
-    it('should handle actions ended with _FAILURE', function() {
-      var action = { type: 'ADD_TODO_FAILURE' };
-      expect(loadingReducer({ ADD_TODO: 1 }, action)).toEqual({ ADD_TODO: 0 });
-      expect(loadingReducer({ ADD_TODO: 2 }, action)).toMatchSnapshot();
-    });
-
-    it('should handle actions ended with _SUCCESS', function() {
-      var action = { type: 'ADD_TODO_SUCCESS' };
-      expect(loadingReducer({ ADD_TODO: 1 }, action)).toEqual({ ADD_TODO: 0 });
-      expect(loadingReducer({ ADD_TODO: 2 }, action)).toMatchSnapshot();
+    test.each([[{ type: 'ADD_TODO_REQUEST' }, undefined, { ADD_TODO: 1 }], [{ type: 'ADD_TODO_REQUEST' }, { ADD_TODO: 1 }, { ADD_TODO: 2 }]])('should handle actions and increment with _REQUEST', function (action, state, expected) {
+      expect(loadingReducer(state, action)).toEqual(expected);
+      expect(loadingReducer(state, action)).toMatchSnapshot();
     });
   });
 
-  describe('error', function() {
-    it('should return the initial state', function() {
+  describe('error', function () {
+    it('should return the initial state', function () {
       expect(errorReducer(undefined, {})).toMatchSnapshot();
     });
 
-    it('should ignore actions not ended with _(REQUEST|SUCCESS|FAILURE)', function() {
-      expect(errorReducer(undefined, { type: 'helloWorld' })).toEqual({});
-      expect(
-        errorReducer(undefined, { type: 'ADD_TODO_FULFILLED' })
-      ).toMatchSnapshot();
-      expect(
-        errorReducer(undefined, { type: 'ADD_TODO_REJECTED' })
-      ).toMatchSnapshot();
-      expect(
-        errorReducer(undefined, { type: 'ADD_TODO_PENDING' })
-      ).toMatchSnapshot();
+    test.each([[{ type: 'helloWorld' }, undefined, {}], [{ type: 'ADD_TODO_FULFILLED' }, undefined, {}], [{ type: 'ADD_TODO_REJECTED' }, undefined, {}], [{ type: 'ADD_TODO_PENDING' }, undefined, {}]])('should ignore actions not ended with _(REQUEST|SUCCESS|FAILURE)', function (action, state, expected) {
+      expect(errorReducer(state, action)).toEqual(expected);
+      expect(errorReducer(state, action)).toMatchSnapshot();
     });
 
-    it('should handle actions ended with _(REQUEST|SUCCESS|FAILURE)', function() {
-      expect(errorReducer(undefined, { type: 'ADD_TODO_REQUEST' })).toEqual({
-        ADD_TODO: null
-      });
-      expect(
-        errorReducer(undefined, { type: 'ADD_TODO_SUCCESS' })
-      ).toMatchSnapshot();
-      expect(
-        errorReducer(undefined, { type: 'ADD_TODO_FAILURE' })
-      ).toMatchSnapshot();
+    test.each([[{ type: 'ADD_TODO_REQUEST' }, undefined, { ADD_TODO: null }], [{ type: 'ADD_TODO_SUCCESS' }, undefined, { ADD_TODO: null }], [{ type: 'ADD_TODO_FAILURE' }, undefined, { ADD_TODO: null }]])('should handle actions ended with _(REQUEST|SUCCESS|FAILURE)', function (action, state, expected) {
+      expect(errorReducer(state, action)).toEqual(expected);
+      expect(errorReducer(state, action)).toMatchSnapshot();
     });
 
-    it('should handle actions ended with _REQUEST', function() {
-      var action = { type: 'ADD_TODO_REQUEST' };
-      var error = new Error('Unexpected error');
-      expect(errorReducer(undefined, action)).toEqual({ ADD_TODO: null });
-      expect(errorReducer({ ADD_TODO: error }, action)).toMatchSnapshot();
+    test.each([[{ type: 'ADD_TODO_REQUEST' }, { ADD_TODO: new Error('Unexpected error') }, { ADD_TODO: null }], [{ type: 'ADD_TODO_SUCCESS' }, { ADD_TODO: new Error('Unexpected error') }, { ADD_TODO: null }]])('should handle actions ended with _(REQUEST|SUCCESS)', function (action, state, expected) {
+      expect(errorReducer(state, action)).toEqual(expected);
+      expect(errorReducer(state, action)).toMatchSnapshot();
     });
 
-    it('should handle actions ended with _FAILURE', function() {
-      var error = new Error('Unexpected error');
-      var action = { type: 'ADD_TODO_FAILURE', payload: error, error: true };
-      expect(errorReducer(undefined, action)).toEqual({ ADD_TODO: error });
-      expect(errorReducer({ ADD_TODO: null }, action)).toMatchSnapshot();
-    });
-
-    it('should handle actions ended with _SUCCESS', function() {
-      var action = { type: 'ADD_TODO_SUCCESS' };
-      var error = new Error('Unexpected error');
-      expect(errorReducer(undefined, action)).toEqual({ ADD_TODO: null });
-      expect(errorReducer({ ADD_TODO: error }, action)).toMatchSnapshot();
+    test.each([[{
+      type: 'ADD_TODO_FAILURE',
+      error: true,
+      payload: new Error('Unexpected error')
+    }, undefined, { ADD_TODO: new Error('Unexpected error') }]])('should handle actions ended with _FAILURE', function (action, state, expected) {
+      expect(errorReducer(state, action)).toEqual(expected);
+      expect(errorReducer(state, action)).toMatchSnapshot();
     });
   });
 });

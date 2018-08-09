@@ -1,4 +1,6 @@
-import { ASYNC_TYPE_PATTERN, REQUEST, FAILURE, SUCCESS } from '../constants';
+import {
+  ASYNC_TYPE_PATTERN, REQUEST, FAILURE, SUCCESS,
+} from '../constants';
 import splitNameAndTypeFromString from '../splitNameAndTypeFromString';
 
 /**
@@ -41,7 +43,7 @@ export default (state = {}, action) => {
     ...state,
     [requestName]: errorReducer(state[requestName], {
       ...action,
-      type: actionType
-    })
+      type: actionType,
+    }),
   };
 };

@@ -5,17 +5,15 @@ import splitNameAndTypeFromString from '../splitNameAndTypeFromString';
 
 const rootStateSelector = createSelector([rootState], state => state.loading);
 
-const selectLoading = state => action => {
+const selectLoading = state => (action) => {
   const [propertyKey] = splitNameAndTypeFromString(action.toString());
   return Boolean(state[propertyKey]);
 };
 
 // returns true only when all actions is not loading
-const createLoadingSelector = actions => {
+const createLoadingSelector = (actions) => {
   actions.forEach(validateActionName);
-  return createSelector([rootStateSelector], state =>
-    actions.some(selectLoading(state))
-  );
+  return createSelector([rootStateSelector], state => actions.some(selectLoading(state)));
 };
 
 export default createLoadingSelector;
