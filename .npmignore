@@ -4,4 +4,4 @@
 /.editorconfig
 /.babelrc
 /webpack.config.js
-__tests__
+/*/__tests__
