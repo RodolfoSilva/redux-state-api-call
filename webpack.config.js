@@ -10,7 +10,7 @@ module.exports = {
     path: path.join(__dirname, 'dist'),
     filename: `redux-state-api-call${production ? '.min' : ''}.js`,
     library: 'ReduxStateApiCall',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
   },
   mode: production ? 'production' : 'development',
   module: {
@@ -18,13 +18,13 @@ module.exports = {
       {
         test: /\.js$/,
         loaders: ['babel-loader', 'eslint-loader'],
-        exclude: /node_modules/
-      }
-    ]
+        exclude: /node_modules/,
+      },
+    ],
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(NODE_ENV)
-    })
-  ]
+      'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
+    }),
+  ],
 };

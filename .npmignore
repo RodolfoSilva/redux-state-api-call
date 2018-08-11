@@ -1,0 +1,6 @@
+/src
+/.travis.yml
+/.eslintrc.js
+/.editorconfig
+/.babelrc
+/webpack.config.js
