@@ -16,8 +16,6 @@
   },
   "homepage": "https://github.com/RodolfoSilva/redux-state-api-call",
   "scripts": {
-    "format": "prettier --write \"**/*.{js,md}\"",
-    "format:check": "prettier --list-different \"**/*.{js,md}\"",
     "build:es": "cross-env BABEL_ENV=es babel src --out-dir es --ignore */__tests__",
     "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib --ignore */__tests__",
     "build:umd": "cross-env NODE_ENV=development webpack",
