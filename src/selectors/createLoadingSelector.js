@@ -7,13 +7,19 @@ const rootStateSelector = createSelector([rootState], state => state.loading);
 
 const selectLoading = state => (action) => {
   const [propertyKey] = splitNameAndTypeFromString(action.toString());
-  return Boolean(state[propertyKey]);
+  return state[propertyKey] !== undefined ? state[propertyKey] : 0;
 };
+
+const sum = (a, b) => a + b;
+
+const sumLoadingActions = actions => state => actions
+  .map(selectLoading(state))
+  .reduce(sum, 0);
 
 // returns true only when all actions is not loading
 const createLoadingSelector = (actions) => {
   actions.forEach(validateActionName);
-  return createSelector([rootStateSelector], state => actions.some(selectLoading(state)));
+  return createSelector([rootStateSelector], sumLoadingActions(actions));
 };
 
 export default createLoadingSelector;
