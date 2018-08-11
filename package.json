@@ -1,6 +1,6 @@
 {
   "name": "redux-state-api-call",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Redux state of api call",
   "main": "lib/index.js",
   "module": "es/index.js",
