@@ -64,3 +64,8 @@ typings/
 
 # IDE
 .idea
+
+# build
+/es
+/dist
+/lib
