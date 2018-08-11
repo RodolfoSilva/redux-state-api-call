@@ -2,7 +2,7 @@
 
 Redux state of api call
 
-![Travis](https://travis-ci.org/RodolfoSilva/redux-state-api-call.svg?branch=master)
+[![build status](https://img.shields.io/travis/RodolfoSilva/redux-state-api-call/master.svg?style=flat-square)](https://travis-ci.org/RodolfoSilva/redux-state-api-call)
 [![npm version](https://img.shields.io/npm/v/redux-state-api-call.svg?style=flat-square)](https://www.npmjs.com/package/redux-state-api-call)
 [![npm downloads](https://img.shields.io/npm/dm/redux-state-api-call.svg?style=flat-square)](https://www.npmjs.com/package/redux-state-api-call)
 [![GitHub license](https://img.shields.io/github/license/RodolfoSilva/redux-state-api-call.svg)](LICENSE)
