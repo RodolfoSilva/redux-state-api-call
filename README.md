@@ -61,10 +61,10 @@ export const {
 #### Loading Selector
 
 ```javascript
-import { createLoadingSelector } from 'redux-state-api-call';
+import { createIsLoadingSelector } from 'redux-state-api-call';
 import * as actions from './actions';
 
-export const isFetching = createLoadingSelector([actions.fetchAllRequest]);
+export const isFetching = createIsLoadingSelector([actions.fetchAllRequest]);
 ```
 
 #### Error Selector

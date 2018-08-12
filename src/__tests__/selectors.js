@@ -1,5 +1,6 @@
 import rootState from '../selectors/rootState';
-import createLoadingSelector from '../selectors/createLoadingSelector';
+import createCountLoadingSelector from '../selectors/createCountLoadingSelector';
+import createIsLoadingSelector from '../selectors/createIsLoadingSelector';
 
 describe('selectors', () => {
   describe('rootState', () => {
@@ -13,7 +14,7 @@ describe('selectors', () => {
     });
   });
 
-  describe('createLoadingSelector', () => {
+  describe('createCountLoadingSelector', () => {
     test.each([
       [
         ['FETCH_ALL_REQUEST'],
@@ -47,7 +48,46 @@ describe('selectors', () => {
         loading: state,
       };
 
-      const isLoading = createLoadingSelector(actionType);
+      const isLoading = createCountLoadingSelector(actionType);
+      expect(isLoading({ api: root })).toEqual(expected);
+    });
+  });
+
+  describe('createIsLoadingSelector', () => {
+    test.each([
+      [
+        ['FETCH_ALL_REQUEST'],
+        {},
+        false,
+      ],
+      [
+        ['FETCH_ALL_REQUEST'],
+        {
+          FETCH_ALL: 0,
+        },
+        false,
+      ],
+      [
+        ['FETCH_ALL_REQUEST'],
+        {
+          FETCH_ALL: 100,
+        },
+        true,
+      ],
+      [
+        ['FETCH_ALL_REQUEST', 'SAVE_ITEM_REQUEST'],
+        {
+          FETCH_ALL: 1,
+          SAVE_ITEM: 5,
+        },
+        true,
+      ],
+    ])('should return the number off loading root state', (actionType, state, expected) => {
+      const root = {
+        loading: state,
+      };
+
+      const isLoading = createIsLoadingSelector(actionType);
       expect(isLoading({ api: root })).toEqual(expected);
     });
   });
